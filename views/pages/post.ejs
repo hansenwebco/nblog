@@ -1,0 +1,4 @@
+<% layout('layouts/main') -%>
+<h1><%=post.postTitle%></h1>
+<div><%=moment(post.postDate).format("dddd, MMMM Do YYYY, h:mm A")%></div>
+<div><%-post.postText%></div>

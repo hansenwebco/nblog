@@ -1,0 +1,16 @@
+<% posts.forEach(function(post) { %>
+  <div class="panel panel-default post">
+    <div class="panel-heading">
+      <div class="post-title"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> <a href="post/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>"><%=post.postTitle%></a></div>
+    </div>
+      <div class="panel-body">
+        <p class="post-text"><%-textHelpers.readMore(post.postText)%></p>
+      </div>
+      <div class="panel-footer">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+        <span class="post-author">Posted by <%=post.postAuthor%></span>
+        <span class="post-date"> on <%=moment(post.postDate).format("dddd, MMMM Do YYYY, h:mm A")%></span>
+        <span class="post-tags pull-right"><span class="label label-info">tagged:</span>&nbsp;&nbsp;&nbsp;<% post.postTags.forEach(function(tag) { %><a href="#<%=tag%>"><span class="label label-primary"><%=tag%></span></a>&nbsp; <%});%></span>
+      </div>
+  </div>
+<% }); %>
