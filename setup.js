@@ -18,6 +18,17 @@ posts.insert({
   postTags: ['stars', 'suns', 'planets']
 });
 
+console.log('Default posts created succesfully.');
+
+var users = db.addCollection('users');
+users.insert({
+  userFullName: 'Default Admin',
+  userLogin: 'admin',
+  userPassword: 'admin'
+});
+
+console.log('Default users created succesfully.');
+
 console.log("Setup is complete! You should delete this file in the future.");
 
 db.saveDatabase();

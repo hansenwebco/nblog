@@ -7,7 +7,13 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/">Home</a></li>
         <li><a href="/">About</a></li>
-      </ul>
+        <% if (user && user.auth) {%>
+        <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+        <li><a href="/login">Login</a></li>
+        <% } %>
+        </ul>
+      <div class="navbar-brand navbar-right" href="#">Welcome <%if (user) { %><%=user.userName%><% } %></a>
     </div>
   </nav>
 </div>

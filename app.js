@@ -1,15 +1,25 @@
 var express = require('express');
 var gzip = require('compression');
 var engine = require('ejs-mate');
+var session = require('express-session');
+var bodyParser = require('body-parser')
 var db = require('./db');
 var config = require('./config');
 
 var app = express();
 var posts;
+var sessionOptions = {
+  secret: config.settings.sessionSecret,
+  resave : true,
+  saveUninitialized : false
+};
 
 // configure express
 app.use(express.static(__dirname + '/public'));
-app.use(gzip());
+
+app.use(gzip()); // make things smaller
+app.use(session(sessionOptions)); // let's use sessions
+app.use(bodyParser.urlencoded({ extended: false })) // we need to be able to read form posts
 app.set('view engine', 'ejs');
 app.locals.moment = require('moment');
 app.locals.textHelpers = require('./texthelpers');
@@ -21,17 +31,53 @@ app.get('/', function(req, res, next) {
     posts = db.getAllPosts();
     res.render('pages/index', {
         'blogConfig': config.blog,
+        'user': req.session.user,
+        'posts': posts.data
+    });
+});
+
+app.get('/login', function(req, res, next) {
+    res.render('pages/login', {
+        'blogConfig': config.blog,
+        'user': req.session.user,
         'posts': posts.data
     });
 });
 
 app.get('/post/:id/:url', function(req, res, next) {
-  var post = db.getPost(parseInt(req.params.id));
-  res.render('pages/post', {
-      'blogConfig': config.blog,
-      'post': post
-  });
+    var post = db.getPost(parseInt(req.params.id));
+    res.render('pages/post', {
+        'blogConfig': config.blog,
+        'user': req.session.user,
+        'post': post
+    });
 });
+
+app.get('/logout', function(req, res, next) {
+    req.session.destroy();
+    res.redirect('/');
+});
+
+app.post('/login', function(req, res, next) {
+    var user = db.getUser(req.body.username, req.body.password);
+    if (user.length > 0) {
+        console.log(user);
+        req.session.user = { 'userName': user[0].userFullName, 'auth': true, 'userID': user[0].$loki};
+        res.redirect('/');
+    } else {
+        res.send('Incorrect login.');
+    }
+});
+
+
+function isAuthenticated(req, res, next) {
+    console.log('User is authenticated');
+    if (true)
+        next();
+    else {
+        res.redirect('/');
+    }
+}
 
 app.listen(config.settings.serverPort, function() {
     console.log('App listening on port ' + config.settings.serverPort);

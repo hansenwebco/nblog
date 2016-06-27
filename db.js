@@ -16,5 +16,10 @@ module.exports = {
       var posts = db.getCollection('posts');
       var result = posts.get(postid);
       return result;
+    },
+    getUser: function(username, password) {
+      var user = db.getCollection('users');
+      var u = user.find({'userLogin' : username} && {  'userPassword' : password });
+      return u;
+      }
     }
-}
