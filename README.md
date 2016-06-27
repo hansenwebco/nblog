@@ -14,6 +14,6 @@ Just a simple blog I'm creating to learn a bit more about NodeJS.
 
 ## Installation
  - clone repo
- - npm update
+ - npm install
  - node setup (this will seutp the db)
  - node app
