@@ -39,8 +39,24 @@ app.get('/', function(req, res, next) {
 app.get('/login', function(req, res, next) {
     res.render('pages/login', {
         'blogConfig': config.blog,
+        'user': req.session.user
+    });
+});
+
+app.get('/manage', isAuthenticated, function(req, res, next) {
+    posts = db.getAllPosts();
+    res.render('pages/manage/index', {
+        'blogConfig': config.blog,
         'user': req.session.user,
         'posts': posts.data
+    });
+});
+app.get('/manage/:id/:url', isAuthenticated, function(req, res, next) {
+    var post = db.getPost(parseInt(req.params.id));
+    res.render('pages/manage/edit', {
+        'blogConfig': config.blog,
+        'user': req.session.user,
+        'post': post
     });
 });
 
@@ -77,12 +93,10 @@ app.post('/login', function(req, res, next) {
 });
 
 function isAuthenticated(req, res, next) {
-    console.log('User is authenticated');
-    if (true)
+    if (req.session.user && req.session.user.auth)
         next();
-    else {
+    else
         res.redirect('/');
-    }
 }
 
 app.listen(config.settings.serverPort, function() {
