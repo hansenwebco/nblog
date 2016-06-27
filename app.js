@@ -58,17 +58,23 @@ app.get('/logout', function(req, res, next) {
     res.redirect('/');
 });
 
+app.get('*', function(req, res, next) {
+    res.status(404);
+    res.render('pages/404', {
+        'blogConfig': config.blog,
+        'user': req.session.user
+    });
+});
+
 app.post('/login', function(req, res, next) {
     var user = db.getUser(req.body.username, req.body.password);
     if (user.length > 0) {
-        console.log(user);
         req.session.user = { 'userName': user[0].userFullName, 'auth': true, 'userID': user[0].$loki};
         res.redirect('/');
     } else {
         res.send('Incorrect login.');
     }
 });
-
 
 function isAuthenticated(req, res, next) {
     console.log('User is authenticated');
