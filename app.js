@@ -3,7 +3,7 @@ var gzip = require('compression');
 var engine = require('ejs-mate');
 var session = require('express-session');
 var bodyParser = require('body-parser')
-var db = require('./db');
+var database = require('./db');
 var config = require('./config');
 var app = express();
 
@@ -23,8 +23,9 @@ app.locals.moment = require('moment');
 app.locals.textHelpers = require('./texthelpers');
 app.engine('ejs', engine); // use ejs-locals for all ejs templates:
 
-//var menuPosts = db.getMenuPosts();
-
+var db = new database(function() {
+  app.locals.menuPosts = db.getMenuPosts();
+});
 
 // routes
 app.get('/', function(req, res, next) {
@@ -85,14 +86,15 @@ app.post('/login', function(req, res, next) {
 });
 
 app.post('/manage/edit/', isAuthenticated, function(req, res, next) {
-  var result = db.updatePost(req.body.id, req.body.title, req.body.date, req.body.posttext, req.body.menuitem)
-  res.send("got it");
+  var result = db.updatePost(req.body.id, req.body.title, req.body.date, req.body.posttext, req.body.menuitem, function() {
+    app.locals.menuPosts = db.getMenuPosts();
+    res.redirect('/manage');
+  });
 });
 
 // 404 everthing else
-app.get('*', function(req, res, next) {
-    res.status(404);
-    res.render('pages/404', {
+app.use(function(req, res, next) {
+    res.status(404).render('pages/404', {
         'blogConfig': config.blog,
         'user': req.session.user
     });

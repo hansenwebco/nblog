@@ -1,7 +1,7 @@
 <% posts.forEach(function(post) { %>
   <div class="panel panel-default post">
     <div class="panel-heading">
-      <div class="post-title"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> <a href="post/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>"><%=post.postTitle%></a></div>
+      <div class="post-title"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> <a href="/post/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>"><%=post.postTitle%></a></div>
     </div>
     <div class="panel-body">
       <p class="post-text"><%-textHelpers.readMore(post.postText)%></p>
