@@ -56,7 +56,7 @@ app.get('/manage/:id/:url', isAuthenticated, function(req, res, next) {
     res.render('pages/manage/edit', {
         'blogConfig': config.blog,
         'user': req.session.user,
-        'post': post
+        'post': post[0]
     });
 });
 
@@ -83,6 +83,12 @@ app.post('/login', function(req, res, next) {
         res.send('Incorrect login.');
     }
 });
+
+app.post('/manage/edit/', isAuthenticated, function(req, res, next) {
+  var result = db.updatePost(req.body.id, req.body.title, req.body.date, req.body.posttext, req.body.menuitem)
+  res.send("got it");
+});
+
 // 404 everthing else
 app.get('*', function(req, res, next) {
     res.status(404);

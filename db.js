@@ -1,4 +1,5 @@
 var loki = require('lokijs');
+var moment = require('moment');
 var db = new loki('blog.json');
 
 // load database
@@ -22,5 +23,20 @@ module.exports = {
       var user = db.getCollection('users');
       var u = user.find({'userLogin' : username} && {  'userPassword' : password });
       return u;
-      }
+    },
+    updatePost: function(id,title,date,post,menuItem) {
+
+        var posts = db.getCollection('posts');
+      var result = posts.get(id);
+
+      result.postTitle = title;
+      result.postText = post;
+      //result.postDate = moment(new Date(date)).utc();
+      result.menuItem = menuItem;
+
+      posts.update(result);
+      db.saveDatabase();
+
+      return;
     }
+}
