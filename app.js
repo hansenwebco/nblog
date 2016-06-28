@@ -74,14 +74,6 @@ app.get('/logout', function(req, res, next) {
     res.redirect('/');
 });
 
-app.get('*', function(req, res, next) {
-    res.status(404);
-    res.render('pages/404', {
-        'blogConfig': config.blog,
-        'user': req.session.user
-    });
-});
-
 app.post('/login', function(req, res, next) {
     var user = db.getUser(req.body.username, req.body.password);
     if (user.length > 0) {
@@ -91,6 +83,16 @@ app.post('/login', function(req, res, next) {
         res.send('Incorrect login.');
     }
 });
+// 404 everthing else
+app.get('*', function(req, res, next) {
+    res.status(404);
+    res.render('pages/404', {
+        'blogConfig': config.blog,
+        'user': req.session.user
+    });
+});
+
+
 
 function isAuthenticated(req, res, next) {
     if (req.session.user && req.session.user.auth)

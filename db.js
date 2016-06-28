@@ -14,7 +14,8 @@ module.exports = {
     getPost: function(postid)
     {
       var posts = db.getCollection('posts');
-      var result = posts.get(postid);
+      //var result = posts.get(postid); // returns a document object
+      var result = posts.find({'$loki' : postid});  // we use find since it return an array object
       return result;
     },
     getUser: function(username, password) {
