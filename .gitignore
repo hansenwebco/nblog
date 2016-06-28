@@ -38,3 +38,6 @@ jspm_packages
 
 #silly mac stuff
 .DS_*
+
+#ignore the database that's created
+blog.json
