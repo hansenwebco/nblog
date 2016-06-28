@@ -26,17 +26,23 @@ module.exports = {
     },
     updatePost: function(id,title,date,post,menuItem) {
 
-        var posts = db.getCollection('posts');
+      var posts = db.getCollection('posts');
       var result = posts.get(id);
 
       result.postTitle = title;
       result.postText = post;
-      //result.postDate = moment(new Date(date)).utc();
-      result.menuItem = menuItem;
+      result.postDate = moment(new Date(date));
+      result.menuItem = (menuItem == undefined) ? 0 : 1;
 
       posts.update(result);
       db.saveDatabase();
 
       return;
+    },
+    getMenuPosts: function() {
+        var posts = db.getCollection('posts');
+        console.log(posts);
+        var results = posts.find({'menuItem' : true  });
+        //console.log(results);
     }
 }

@@ -5,9 +5,8 @@ var session = require('express-session');
 var bodyParser = require('body-parser')
 var db = require('./db');
 var config = require('./config');
-
 var app = express();
-var posts;
+
 var sessionOptions = {
   secret: config.settings.sessionSecret,
   resave : true,
@@ -16,7 +15,6 @@ var sessionOptions = {
 
 // configure express
 app.use(express.static(__dirname + '/public'));
-
 app.use(gzip()); // make things smaller
 app.use(session(sessionOptions)); // let's use sessions
 app.use(bodyParser.urlencoded({ extended: false })) // we need to be able to read form posts
@@ -25,10 +23,12 @@ app.locals.moment = require('moment');
 app.locals.textHelpers = require('./texthelpers');
 app.engine('ejs', engine); // use ejs-locals for all ejs templates:
 
+//var menuPosts = db.getMenuPosts();
+
 
 // routes
 app.get('/', function(req, res, next) {
-    posts = db.getAllPosts();
+    var posts = db.getAllPosts();
     res.render('pages/index', {
         'blogConfig': config.blog,
         'user': req.session.user,
@@ -44,7 +44,7 @@ app.get('/login', function(req, res, next) {
 });
 
 app.get('/manage', isAuthenticated, function(req, res, next) {
-    posts = db.getAllPosts();
+    var posts = db.getAllPosts();
     res.render('pages/manage/index', {
         'blogConfig': config.blog,
         'user': req.session.user,
@@ -97,7 +97,6 @@ app.get('*', function(req, res, next) {
         'user': req.session.user
     });
 });
-
 
 
 function isAuthenticated(req, res, next) {
