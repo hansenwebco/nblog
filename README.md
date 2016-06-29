@@ -11,6 +11,8 @@ Just a simple blog I'm creating to learn a bit more about NodeJS.
  - siege - basic load testing  (node benchmark.js to try it out)
  - bootstrap - css layout
  - compression - gzip
+ - chai - unit testing
+ - mocha - test runner
 
 ## Installation
  - clone repo
