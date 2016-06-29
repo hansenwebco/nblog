@@ -4,7 +4,7 @@
       <div class="post-title"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> <a href="/post/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>"><%=post.postTitle%></a></div>
     </div>
     <div class="panel-body">
-      <p class="post-text"><%-textHelpers.readMore(post.postText)%></p>
+      <p class="post-text"><%-textHelpers.readMore(post.postText,1000)%></p>
     </div>
     <div class="panel-footer">
       <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>

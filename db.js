@@ -1,16 +1,14 @@
 var loki = require('lokijs');
 var moment = require('moment');
-var lokidb = new loki('blog.json');
+var lokidb;
 
 var db = function(callback) {
-    // load database
-    console.log("Starting database...");
+    lokidb = new loki('blog.json');
     lokidb.loadDatabase({}, function() {
-        console.log("Database started...");
-        callback();
+        if (typeof callback === "function")
+          callback();
     });
 };
-
 
 db.prototype.getAllPosts = function() {
     return lokidb.getCollection('posts');
@@ -18,10 +16,9 @@ db.prototype.getAllPosts = function() {
 
 db.prototype.getPost = function(postid) {
     var posts = lokidb.getCollection('posts');
-    //var result = posts.get(postid); // returns a document object
     var result = posts.find({
         '$loki': postid
-    }); // we use find since it return an array object
+    }); // we use find() not get() since it return an array object
     return result;
 }
 
@@ -48,7 +45,8 @@ db.prototype.updatePost = function(id, title, date, post, menuItem,callback) {
     posts.update(result);
     lokidb.saveDatabase();
 
-    callback();
+    if (typeof callback === "function")
+      callback();
 
 }
 

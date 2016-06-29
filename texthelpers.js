@@ -1,18 +1,24 @@
 module.exports =
 {
 
-  seoifyURL: function(text) {
-      var characters = [' ', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '_', '{', '}', '[', ']', '|', '/', '<', '>', ',', '.', '?', '--'];
-      for (var i = 0; i < characters.length; i++) {
-          var char = String(characters[i]);
-          text = text.replace(new RegExp("\\" + char, "g"), '-');
-      }
-      text = text.toLowerCase();
-      return text;
+  seoifyURL: function(url) {
+    // make the url lowercase
+     var encodedUrl = url.toString().toLowerCase();
+
+     // remove invalid characters
+     encodedUrl = encodedUrl.split(/[^a-z0-9]/).join("-");
+
+     // remove duplicates
+     encodedUrl = encodedUrl.split(/-+/).join("-");
+
+     // trim leading & trailing characters
+     encodedUrl =  encodedUrl.replace(/^\-+|\-+$/g,'')
+
+     return encodedUrl;
   },
-  readMore: function(text) {
-    if (text.length && text.length > 1000)
-        return text.substring(0,999) + "...";
+  readMore: function(text,length) {
+    if (text.length && text.length > length)
+        return text.substring(0,length -1) + "...";
       else {
         return text;
       }
