@@ -43,7 +43,7 @@ db.prototype.updatePost = function(id, title, date, post, menuItem, author, call
 
     result.postTitle = title;
     result.postText = post;
-    result.postDate = moment(new Date(date));
+    result.postDate = moment.utc().format();
     result.menuItem = (menuItem == undefined) ? 0 : 1;
     result.postAuthor = author;
     result.postTags = [];

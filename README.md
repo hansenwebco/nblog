@@ -12,10 +12,12 @@ Just a simple blog I'm creating to learn a bit more about NodeJS.
  - bootstrap - css layout
  - compression - gzip
  - chai - unit testing
- - mocha - test runner
+ - mocha - test runner, use 'mocha --recursive' to execute tests
 
 ## Installation
  - clone repo
- - npm install
- - node setup (this will seutp the db)
- - node app
+ - run 'npm install'
+ - adjust settings in config.js
+ - run 'node setup' (this will setup the db)
+ - run 'node app'
+ - navigate to http://localhost:{configport}
