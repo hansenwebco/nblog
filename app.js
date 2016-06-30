@@ -3,6 +3,7 @@ var gzip = require('compression');
 var engine = require('ejs-mate');
 var session = require('express-session');
 var bodyParser = require('body-parser')
+var moment = require('moment');
 var database = require('./db');
 var config = require('./config');
 var app = express();
@@ -52,6 +53,16 @@ app.get('/manage', isAuthenticated, function(req, res, next) {
         'posts': posts.data
     });
 });
+
+app.get('/manage/create-new-post', isAuthenticated, function(req,res,next) {
+  var post = { 'postTitle': '', 'postDate' : moment(), 'postText' : '' , id: 0, 'menuItem' : 0 }
+
+  res.render('pages/manage/edit', {
+      'blogConfig': config.blog,
+      'user': req.session.user,
+      'post': post
+  });
+});
 app.get('/manage/:id/:url', isAuthenticated, function(req, res, next) {
     var post = db.getPost(parseInt(req.params.id));
     res.render('pages/manage/edit', {
@@ -86,7 +97,7 @@ app.post('/login', function(req, res, next) {
 });
 
 app.post('/manage/edit/', isAuthenticated, function(req, res, next) {
-  var result = db.updatePost(req.body.id, req.body.title, req.body.date, req.body.posttext, req.body.menuitem, function() {
+  var result = db.updatePost(req.body.id, req.body.title, req.body.date, req.body.posttext, req.body.menuitem, req.session.user.userName,  function() {
     app.locals.menuPosts = db.getMenuPosts();
     res.redirect('/manage');
   });
@@ -99,7 +110,6 @@ app.use(function(req, res, next) {
         'user': req.session.user
     });
 });
-
 
 function isAuthenticated(req, res, next) {
     if (req.session.user && req.session.user.auth)

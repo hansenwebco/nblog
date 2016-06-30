@@ -6,7 +6,7 @@ var db = function(callback) {
     lokidb = new loki('blog.json');
     lokidb.loadDatabase({}, function() {
         if (typeof callback === "function")
-          callback();
+            callback();
     });
 };
 
@@ -32,21 +32,31 @@ db.prototype.getUser = function(username, password) {
     return u;
 }
 
-db.prototype.updatePost = function(id, title, date, post, menuItem,callback) {
+db.prototype.updatePost = function(id, title, date, post, menuItem, author, callback) {
 
     var posts = lokidb.getCollection('posts');
-    var result = posts.get(id);
+    var result;
+    if (id > 0) // edit record
+        result = posts.get(id);
+    else // create new record
+        result = {};
 
     result.postTitle = title;
     result.postText = post;
     result.postDate = moment(new Date(date));
     result.menuItem = (menuItem == undefined) ? 0 : 1;
+    result.postAuthor = author;
+    result.postTags = [];
 
-    posts.update(result);
+    if (id > 0)
+      posts.update(result);
+    else
+      posts.insert(result);
+
     lokidb.saveDatabase();
 
     if (typeof callback === "function")
-      callback();
+        callback();
 
 }
 
