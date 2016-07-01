@@ -42,7 +42,7 @@ db.prototype.getUser = function(username, password) {
     return u;
 }
 
-db.prototype.updatePost = function(id, title, date, post, menuItem, author, callback) {
+db.prototype.updatePost = function(id, title, date, post, menuItem, author, tags, callback) {
 
     var posts = lokidb.getCollection('posts');
     var result;
@@ -53,10 +53,10 @@ db.prototype.updatePost = function(id, title, date, post, menuItem, author, call
 
     result.postTitle = title;
     result.postText = post;
-    result.postDate = moment.utc().format();
+    result.postDate = moment.utc(date,"M/d/YYYY h:mm:ss A").format();
     result.menuItem = (menuItem == undefined) ? 0 : 1;
     result.postAuthor = author;
-    result.postTags = [];
+    result.postTags = tags.split(',');
 
     if (id > 0)
       posts.update(result);

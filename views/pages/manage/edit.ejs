@@ -15,9 +15,16 @@
   </div>
 
   <div class="form-group">
+    <label class="col-md-2 control-label" for="textinput">Post Tags</label>
+    <div class="col-md-9">
+    <input id="textinput" name="tags" type="text" value="<%=post.postTags%>" placeholder="post tags" class="form-control input-md" required="">
+    </div>
+  </div>
+
+  <div class="form-group">
     <label class="col-md-2 control-label" for="textarea">Post</label>
     <div class="col-md-9">
-      <textarea class="form-control" name="posttext" id="textarea" rows="20" placeholder="Spill your drivel here." name="textarea"><%=post.postText%></textarea>
+      <textarea class="form-control" name="posttext" id="textarea" rows="20" placeholder="Spill your drivel here." ><%=post.postText%></textarea>
     </div>
   </div>
 
