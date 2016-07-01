@@ -5,19 +5,14 @@ var lokidb;
 var db = function(callback) {
     lokidb = new loki('blog.json');
     lokidb.loadDatabase({}, function() {
+
         if (typeof callback === "function")
             callback();
     });
 };
 
 db.prototype.getAllPosts = function(showMenuItems) {
-
     var posts = lokidb.getCollection('posts');
-
-
-    //if (showMenuItems)
-    //posts = posts.removeWhere(function( obj ){ return obj.menuItem == 0; })
-
     var result = posts.chain()
     .where(function(obj) { return (obj.menuItem == 1 && showMenuItems == true) || obj.menuItem == 0 } )
     .sort(function(obj1, obj2) {
@@ -27,7 +22,6 @@ db.prototype.getAllPosts = function(showMenuItems) {
     }).data();
 
     // TODO: add paging .offsset(x).limit(x) on result query
-
     return result;
 }
 
@@ -72,7 +66,6 @@ db.prototype.updatePost = function(id, title, date, post, menuItem, author, tags
 
     if (typeof callback === "function")
         callback();
-
 }
 
 db.prototype.getMenuPosts = function() {
