@@ -30,7 +30,7 @@ var db = new database(function() {
 
 // routes
 app.get('/', function(req, res, next) {
-    var posts = db.getAllPosts();
+    var posts = db.getAllPosts(false);
     res.render('pages/index', {
         'blogConfig': config.blog,
         'user': req.session.user,
@@ -46,7 +46,7 @@ app.get('/login', function(req, res, next) {
 });
 
 app.get('/manage', isAuthenticated, function(req, res, next) {
-    var posts = db.getAllPosts();
+    var posts = db.getAllPosts(true);
     res.render('pages/manage/index', {
         'blogConfig': config.blog,
         'user': req.session.user,
@@ -55,8 +55,8 @@ app.get('/manage', isAuthenticated, function(req, res, next) {
 });
 
 app.get('/manage/create-new-post', isAuthenticated, function(req,res,next) {
+  // TODO: should probably create a base "post" object for blog as a whole
   var post = { 'postTitle': '', 'postDate' : moment(), 'postText' : '' , id: 0, 'menuItem' : 0 ,'postTags': ''}
-
   res.render('pages/manage/edit', {
       'blogConfig': config.blog,
       'user': req.session.user,
@@ -68,7 +68,7 @@ app.get('/manage/:id/:url', isAuthenticated, function(req, res, next) {
     res.render('pages/manage/edit', {
         'blogConfig': config.blog,
         'user': req.session.user,
-        'post': post[0]
+        'post': post
     });
 });
 

@@ -11,7 +11,7 @@ describe("Database Manager", function() {
     });
 
     it("Reads all posts in the database" , function () {
-      var posts = db.getAllPosts();
+      var posts = db.getAllPosts(true);
       expect(posts).to.be.an('object');
       expect(posts.data).to.have.length(2);
     })

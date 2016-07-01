@@ -10,25 +10,30 @@ var db = function(callback) {
     });
 };
 
-db.prototype.getAllPosts = function() {
+db.prototype.getAllPosts = function(showMenuItems) {
 
     var posts = lokidb.getCollection('posts');
-    var result = posts.chain().sort( function(obj1, obj2) {
-          if (obj1.postDate == obj2.postDate) return 0;
-          if (moment(obj1.postDate).isAfter(moment(obj2.postDate))) return 1;
-          if (moment(obj2.postDate).isAfter(moment(obj1.postDate))) return -1;
-        }).data();
 
-        // TODO: add paging .offsset(x).limit(x) on result query
+
+    //if (showMenuItems)
+    //posts = posts.removeWhere(function( obj ){ return obj.menuItem == 0; })
+
+    var result = posts.chain()
+    .where(function(obj) { return (obj.menuItem == 1 && showMenuItems == true) || obj.menuItem == 0 } )
+    .sort(function(obj1, obj2) {
+        if (obj1.postDate == obj2.postDate) return 0;
+        if (moment(obj1.postDate).isAfter(moment(obj2.postDate))) return 1;
+        if (moment(obj2.postDate).isAfter(moment(obj1.postDate))) return -1;
+    }).data();
+
+    // TODO: add paging .offsset(x).limit(x) on result query
 
     return result;
 }
 
 db.prototype.getPost = function(postid) {
     var posts = lokidb.getCollection('posts');
-    var result = posts.find({
-        '$loki': postid
-    }); // we use find() not get() since it return an array object
+    var result = posts.get(postid);
     return result;
 }
 
@@ -53,15 +58,15 @@ db.prototype.updatePost = function(id, title, date, post, menuItem, author, tags
 
     result.postTitle = title;
     result.postText = post;
-    result.postDate = moment.utc(date,"M/d/YYYY h:mm:ss A");
+    result.postDate = moment.utc(date, "M/d/YYYY h:mm:ss A");
     result.menuItem = (menuItem == undefined) ? 0 : 1;
     result.postAuthor = author;
     result.postTags = tags.split(',');
 
     if (id > 0)
-      posts.update(result);
+        posts.update(result);
     else
-      posts.insert(result);
+        posts.insert(result);
 
     lokidb.saveDatabase();
 
