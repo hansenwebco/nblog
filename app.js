@@ -34,7 +34,7 @@ app.get('/', function(req, res, next) {
     res.render('pages/index', {
         'blogConfig': config.blog,
         'user': req.session.user,
-        'posts': posts.data
+        'posts': posts
     });
 });
 
@@ -50,7 +50,7 @@ app.get('/manage', isAuthenticated, function(req, res, next) {
     res.render('pages/manage/index', {
         'blogConfig': config.blog,
         'user': req.session.user,
-        'posts': posts.data
+        'posts': posts
     });
 });
 
