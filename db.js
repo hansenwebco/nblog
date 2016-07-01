@@ -15,8 +15,8 @@ db.prototype.getAllPosts = function() {
     var posts = lokidb.getCollection('posts');
     var result = posts.chain().sort( function(obj1, obj2) {
           if (obj1.postDate == obj2.postDate) return 0;
-          if (moment(obj1.postDate).isAfter(moment(obj2.postDate))) return -1;
-          if (moment(obj2.postDate).isAfter(moment(obj1.postDate))) return 1;
+          if (moment(obj1.postDate).isAfter(moment(obj2.postDate))) return 1;
+          if (moment(obj2.postDate).isAfter(moment(obj1.postDate))) return -1;
         }).data();
 
         // TODO: add paging .offsset(x).limit(x) on result query
@@ -53,7 +53,7 @@ db.prototype.updatePost = function(id, title, date, post, menuItem, author, tags
 
     result.postTitle = title;
     result.postText = post;
-    result.postDate = moment.utc(date,"M/d/YYYY h:mm:ss A").format();
+    result.postDate = moment.utc(date,"M/d/YYYY h:mm:ss A");
     result.menuItem = (menuItem == undefined) ? 0 : 1;
     result.postAuthor = author;
     result.postTags = tags.split(',');

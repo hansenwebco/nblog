@@ -55,7 +55,7 @@ app.get('/manage', isAuthenticated, function(req, res, next) {
 });
 
 app.get('/manage/create-new-post', isAuthenticated, function(req,res,next) {
-  var post = { 'postTitle': '', 'postDate' : moment(), 'postText' : '' , id: 0, 'menuItem' : 0 }
+  var post = { 'postTitle': '', 'postDate' : moment(), 'postText' : '' , id: 0, 'menuItem' : 0 ,'postTags': ''}
 
   res.render('pages/manage/edit', {
       'blogConfig': config.blog,

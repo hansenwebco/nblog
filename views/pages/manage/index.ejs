@@ -12,7 +12,7 @@
       <% posts.forEach(function(post) { %>
       <tr>
           <td><a href="manage/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>"><%=post.postTitle%></a></td>
-          <td><%=moment(post.postDate).format("MM/d/YYYY, h:mm A")%></td>
+          <td><%=moment(post.postDate).format("MM/D/YYYY, h:mm A")%></td>
           <th>options</th>
       </tr>
       <% }); %>
