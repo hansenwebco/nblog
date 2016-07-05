@@ -3,7 +3,7 @@ var config = {};
 // general settings
 config.settings = {};
 config.settings.serverPort = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-config.settings.serverIP = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+config.settings.serverIP = '127.0.0.1';
 config.settings.sessionSecret = "JUSTPUTASECRETHERE!";
 
 // blog settings
