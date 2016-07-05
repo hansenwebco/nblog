@@ -41,3 +41,6 @@ jspm_packages
 
 #ignore the database that's created
 blog.json
+
+#ignore session stores
+sessions

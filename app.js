@@ -2,6 +2,7 @@ var express = require('express');
 var gzip = require('compression');
 var engine = require('ejs-mate');
 var session = require('express-session');
+var sessionFileStore = require('session-file-store')(session);
 var bodyParser = require('body-parser')
 var moment = require('moment');
 var config = require('./config');
@@ -9,6 +10,7 @@ var database = require('./db');
 var app = express();
 
 var sessionOptions = {
+  store: new sessionFileStore,
   secret: config.settings.sessionSecret,
   resave : true,
   saveUninitialized : false
