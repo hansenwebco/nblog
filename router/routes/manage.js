@@ -3,7 +3,8 @@ var router = express.Router();
 var moment = require('moment');
 var config = require('../../config');
 
-module.exports = function(db) {
+module.exports = function(app,db) {
+
     router.get('/', isAuthenticated, function(req, res, next) {
         var posts = db.getAllPosts(true);
         res.render('pages/manage/index', {
@@ -41,7 +42,7 @@ module.exports = function(db) {
 
     router.post('/edit/', isAuthenticated, function(req, res, next) {
         var result = db.updatePost(req.body.id, req.body.title, req.body.date, req.body.posttext, req.body.menuitem, req.session.user.userName, req.body.tags, function() {
-            //app.locals.menuPosts = db.getMenuPosts();
+            app.locals.menuPosts = db.getMenuPosts();
             res.redirect('/manage');
         });
     });

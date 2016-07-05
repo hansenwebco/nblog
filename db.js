@@ -16,9 +16,15 @@ db.prototype.getAllPosts = function(showMenuItems) {
     .where(function(obj) { return (obj.menuItem == 1 && showMenuItems == true) || obj.menuItem == 0 } )
     .sort(function(obj1, obj2) {
         if (obj1.postDate == obj2.postDate) return 0;
-        if (moment(obj1.postDate).isAfter(moment(obj2.postDate))) return 1;
-        if (moment(obj2.postDate).isAfter(moment(obj1.postDate))) return -1;
-    }).data();
+        if (moment(obj1.postDate).isAfter(moment(obj2.postDate))) return -1;
+        if (moment(obj2.postDate).isAfter(moment(obj1.postDate))) return 1;
+    })
+    .sort(function(obj1, obj2) {
+        if (obj1.postDate == obj2.postDate) return 0;
+        if (obj1.menuItem > obj2.menuItem) return -1;
+        if (obj1.menuItem < obj2.menuItem) return 1;
+    })
+    .data();
 
     // TODO: add paging .offsset(x).limit(x) on result query
     return result;

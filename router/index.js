@@ -3,7 +3,7 @@ var config = require('../config');
 module.exports = function (app,db) {
     app.use('/', require('./routes/default')(db));
     app.use('/', require('./routes/login')(db));
-    app.use('/manage', require('./routes/manage')(db));
+    app.use('/manage', require('./routes/manage')(app,db));
 
     //404 routes we can't find!
     app.use(function(req, res) {
@@ -19,5 +19,5 @@ module.exports = function (app,db) {
         res.status(500);
         res.send(err);
     });
-    
+
 };
