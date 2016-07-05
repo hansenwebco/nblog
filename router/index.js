@@ -5,12 +5,19 @@ module.exports = function (app,db) {
     app.use('/', require('./routes/login')(db));
     app.use('/manage', require('./routes/manage')(db));
 
-    //404 everthing else
-    app.use(function(req, res, next) {
+    //404 routes we can't find!
+    app.use(function(req, res) {
         res.status(404).render('pages/404', {
             'blogConfig': config.blog,
             'user': req.session.user
         });
     });
 
+    // if it's not 404 it's 500!
+    app.use(function(err, req, res) {
+        console.log(err);
+        res.status(500);
+        res.send(err);
+    });
+    
 };
