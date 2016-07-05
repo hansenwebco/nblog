@@ -30,6 +30,6 @@ app.engine('ejs', engine); // use ejs-locals for all ejs templates:
 
 var router = require('./router')(app,db);
 
-app.listen(config.settings.serverPort, function() {
-    console.log('App listening on port ' + config.settings.serverPort);
+app.listen(config.settings.serverPort, config.settings.serverIP, function() {
+    console.log('App listening on ' + config.settings.serverIP + ' Port: ' + config.settings.serverPort);
 });
