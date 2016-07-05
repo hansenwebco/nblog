@@ -12,7 +12,7 @@ module.exports =
      encodedUrl = encodedUrl.split(/-+/).join("-");
 
      // trim leading & trailing characters
-     encodedUrl =  encodedUrl.replace(/^\-+|\-+$/g,'')
+     encodedUrl =  encodedUrl.replace(/^\-+|\-+$/g,'');
 
      return encodedUrl;
   },
@@ -23,4 +23,4 @@ module.exports =
         return text;
       }
   }
-}
+};

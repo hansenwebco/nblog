@@ -23,7 +23,7 @@ module.exports = function(app,db) {
             id: 0,
             'menuItem': 0,
             'postTags': ''
-        }
+        };
         res.render('pages/manage/edit', {
             'blogConfig': config.blog,
             'user': req.session.user,
@@ -55,4 +55,4 @@ module.exports = function(app,db) {
     }
 
     return router;
-}
+};

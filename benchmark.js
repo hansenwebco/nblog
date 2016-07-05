@@ -6,4 +6,4 @@ siege('node app.js')
   .for(50000).times
   .get('/')
   .concurrent(1000)
-  .attack()
+  .attack();

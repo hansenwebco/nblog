@@ -13,7 +13,7 @@ var db = function(callback) {
 db.prototype.getAllPosts = function(showMenuItems) {
     var posts = lokidb.getCollection('posts');
     var result = posts.chain()
-    .where(function(obj) { return (obj.menuItem == 1 && showMenuItems == true) || obj.menuItem == 0 } )
+    .where(function(obj) { return (obj.menuItem == 1 && showMenuItems === true) || obj.menuItem === 0; } )
     .sort(function(obj1, obj2) {
         if (obj1.postDate == obj2.postDate) return 0;
         if (moment(obj1.postDate).isAfter(moment(obj2.postDate))) return -1;
@@ -28,13 +28,13 @@ db.prototype.getAllPosts = function(showMenuItems) {
 
     // TODO: add paging .offsset(x).limit(x) on result query
     return result;
-}
+};
 
 db.prototype.getPost = function(postid) {
     var posts = lokidb.getCollection('posts');
     var result = posts.get(postid);
     return result;
-}
+};
 
 db.prototype.getUser = function(username, password) {
     var user = lokidb.getCollection('users');
@@ -44,7 +44,7 @@ db.prototype.getUser = function(username, password) {
         'userPassword': password
     });
     return u;
-}
+};
 
 db.prototype.updatePost = function(id, title, date, post, menuItem, author, tags, callback) {
 
@@ -58,7 +58,7 @@ db.prototype.updatePost = function(id, title, date, post, menuItem, author, tags
     result.postTitle = title;
     result.postText = post;
     result.postDate = moment.utc(date, "M/d/YYYY h:mm:ss A");
-    result.menuItem = (menuItem == undefined) ? 0 : 1;
+    result.menuItem = (menuItem === undefined) ? 0 : 1;
     result.postAuthor = author;
     result.postTags = tags.split(',');
 
@@ -71,7 +71,7 @@ db.prototype.updatePost = function(id, title, date, post, menuItem, author, tags
 
     if (typeof callback === "function")
         callback();
-}
+};
 
 db.prototype.getMenuPosts = function() {
     var posts = lokidb.getCollection('posts');
@@ -79,6 +79,6 @@ db.prototype.getMenuPosts = function() {
         'menuItem': 1
     });
     return results;
-}
+};
 
 module.exports = db;

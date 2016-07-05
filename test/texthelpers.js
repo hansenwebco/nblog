@@ -14,7 +14,7 @@ describe("Text Helper", function() {
     });
 
     it("Shortens strings over X Characters and Adds ...", function() {
-      var string = "This is a text string."
+      var string = "This is a text string.";
 
       var short = texthelpers.readMore(string,23);
       var sameLength = texthelpers.readMore(string,22);

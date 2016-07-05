@@ -14,5 +14,5 @@ describe("Database Manager", function() {
       var posts = db.getAllPosts(true);
       expect(posts).to.be.an('array');
       expect(posts).to.have.length.above(2);
-    })
+    });
 });

@@ -28,6 +28,6 @@ module.exports = function(db) {
         req.session.destroy();
         res.redirect('/');
     });
-    
+
     return router;
-}
+};
