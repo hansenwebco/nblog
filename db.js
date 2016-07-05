@@ -5,7 +5,6 @@ var lokidb;
 var db = function(callback) {
     lokidb = new loki('blog.json');
     lokidb.loadDatabase({}, function() {
-
         if (typeof callback === "function")
             callback();
     });
