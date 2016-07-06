@@ -30,6 +30,20 @@ db.prototype.getAllPosts = function(showMenuItems) {
     return result;
 };
 
+db.prototype.getAllPages = function() {
+    var posts = lokidb.getCollection('posts');
+    var result = posts.chain()
+    .where(function(obj) { return obj.menuItem === 1; } )
+    .sort(function(obj1, obj2) {
+        if (obj1.postDate == obj2.postDate) return 0;
+        if (moment(obj1.postDate).isAfter(moment(obj2.postDate))) return -1;
+        if (moment(obj2.postDate).isAfter(moment(obj1.postDate))) return 1;
+    })
+    .data();
+
+    return result;
+};
+
 db.prototype.getPost = function(postid) {
     var posts = lokidb.getCollection('posts');
     var result = posts.get(postid);
@@ -71,6 +85,19 @@ db.prototype.updatePost = function(id, title, date, post, menuItem, author, tags
 
     if (typeof callback === "function")
         callback();
+};
+
+db.prototype.deletePost = function(postid, callback)
+{
+  var posts = lokidb.getCollection('posts');
+
+  var result = posts.get(postid);
+  posts.remove(result);
+  lokidb.saveDatabase();
+
+  if (typeof callback === "function")
+      callback();
+
 };
 
 db.prototype.getMenuPosts = function() {

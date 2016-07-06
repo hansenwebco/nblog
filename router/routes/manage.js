@@ -3,14 +3,16 @@ var router = express.Router();
 var moment = require('moment');
 var config = require('../../config');
 
-module.exports = function(app,db) {
+module.exports = function(app, db) {
 
     router.get('/', isAuthenticated, function(req, res, next) {
-        var posts = db.getAllPosts(true);
+        var posts = db.getAllPosts(false);
+        var pages = db.getAllPages();
         res.render('pages/manage/index', {
             'blogConfig': config.blog,
             'user': req.session.user,
-            'posts': posts
+            'posts': posts,
+            'pages': pages
         });
     });
 
@@ -30,7 +32,13 @@ module.exports = function(app,db) {
             'post': post
         });
     });
+    router.get('/delete/:id', isAuthenticated, function(req, res, next) {
 
+        db.deletePost(parseInt(req.params.id), function() {
+            app.locals.menuPosts = db.getMenuPosts();
+            res.redirect('/manage');
+        });
+    });
     router.get('/:id/:url', isAuthenticated, function(req, res, next) {
         var post = db.getPost(parseInt(req.params.id));
         res.render('pages/manage/edit', {
@@ -46,6 +54,8 @@ module.exports = function(app,db) {
             res.redirect('/manage');
         });
     });
+
+
 
     function isAuthenticated(req, res, next) {
         if (req.session.user && req.session.user.auth)

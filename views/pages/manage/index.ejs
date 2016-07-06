@@ -3,10 +3,16 @@
   <div class="col-md-12">
     <a class="btn btn-sm btn-primary pull-right" href="/manage/create-new-post">Create Post</a>
     <h1>Manage Blog</h1>
+
     <table class="table table-bordered table-stripped">
       <tr>
-        <th>Post Title</th>
-        <th>Post Date</th>
+        <th colspan="3">
+          <h4>Posts</h4>
+        </th>
+      </tr>
+      <tr>
+        <td>Post Title</td>
+        <td>Post Date</td>
         <td>Options</th>
       </tr>
       <% posts.forEach(function(post) { %>
@@ -15,11 +21,35 @@
           <td><%=moment(post.postDate).format("MM/D/YYYY, h:mm A")%></td>
           <td>
             <a href="manage/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>" class="btn btn-xs btn-default">edit</a>
-            <a href="manage/delete/<%=post.$loki%>" class="btn btn-xs btn-warning">delete</a>
+            <a onclick="javascript:return confirm('Are you sure you wish to delete this post?');" href="manage/delete/<%=post.$loki%>" class="btn btn-xs btn-warning">delete</a>
+          </td>
+      </tr>
+      <% }); %>
+      <tr>
+        <td colspan="3">
+          <h4>Pages</h4>
+        </td>
+      </tr>
+      <tr>
+        <td>Post Title</td>
+        <td>Post Date</td>
+        <td>Options</th>
+      </tr>
+      <% pages.forEach(function(post) { %>
+      <tr>
+          <td><a href="manage/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>"><%=post.postTitle%></a></td>
+          <td><%=moment(post.postDate).format("MM/D/YYYY, h:mm A")%></td>
+          <td>
+            <a href="manage/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>" class="btn btn-xs btn-default">edit</a>
+            <a onclick="javascript:return confirm('Are you sure you wish to delete this post?');" href="manage/delete/<%=post.$loki%>" class="btn btn-xs btn-warning">delete</a>
           </td>
       </tr>
       <% }); %>
     </table>
+
+
+
+
   </div>
 </div>
 <br/><br/>
