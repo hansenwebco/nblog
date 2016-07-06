@@ -2,8 +2,8 @@ var loki = require('lokijs');
 var moment = require('moment');
 var lokidb;
 
-var db = function(callback) {
-    lokidb = new loki('blog.json');
+var db = function(dbFile, callback) {
+    lokidb = new loki(dbFile);
     lokidb.loadDatabase({}, function() {
         if (typeof callback === "function")
             callback();

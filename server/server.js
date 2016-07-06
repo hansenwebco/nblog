@@ -18,7 +18,7 @@ module.exports = function() {
         saveUninitialized: false
     };
 
-    var db = new database(function() {
+    var db = new database('blog.json',function() {
         app.locals.menuPosts = db.getMenuPosts();
     });
 
@@ -28,9 +28,9 @@ module.exports = function() {
     app.use(session(sessionOptions)); // let's use sessions
     app.use(bodyParser.urlencoded({extended: false })); // we need to be able to read form posts
     app.set('view engine', 'ejs'); // view engine duh
+    app.engine('ejs', engine); // use ejs-locals for all ejs templates:
     app.locals.moment = require('moment'); // makes working with time easier
     app.locals.textHelpers = require('../texthelpers'); // local helpers
-    app.engine('ejs', engine); // use ejs-locals for all ejs templates:
 
     var router = require('../router')(app, db);
 

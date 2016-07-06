@@ -5,6 +5,7 @@ config.settings = {};
 config.settings.serverPort =  3000;
 config.settings.serverIP = '127.0.0.1';
 config.settings.sessionSecret = "JUSTPUTASECRETHERE!";
+config.settings.database = "db.json";
 
 // blog settings
 config.blog = {};
