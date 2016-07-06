@@ -27,5 +27,11 @@
     "moment": "^2.13.0",
     "session-file-store": "^0.2.0",
     "siege": "^0.2.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-mocha": "^2.2.0",
+    "run-sequence": "^1.2.2"
   }
 }
