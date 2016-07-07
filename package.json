@@ -33,7 +33,6 @@
     "gulp-clean": "^0.3.2",
     "gulp-mocha": "^2.2.0",
     "gulp-nodemon": "^2.1.0",
-    "run-sequence": "^1.2.2",
-    "selenium-webdriver": "^2.53.3"
+    "run-sequence": "^1.2.2"
   }
 }
