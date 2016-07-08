@@ -44,3 +44,6 @@ blog.json
 
 #ignore session stores
 sessions
+
+#vscode grossness
+.vscode
