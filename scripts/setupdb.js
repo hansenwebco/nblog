@@ -1,6 +1,6 @@
 var loki = require('lokijs');
 var moment = require('moment');
-var config = require('../config');
+var config = require('../src/config');
 
 module.exports = function(dbname) {
 

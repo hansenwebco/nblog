@@ -1,7 +1,7 @@
 var assert = require('chai').assert;
-var database = require('../db');
+var database = require('../src/db');
 var expect = require("chai").expect;
-var config = require('../config');
+var config = require('../src/config');
 
 var db = new database('testdb.json', function() {
     describe("Database Manager", function() {

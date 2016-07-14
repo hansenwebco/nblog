@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 var expect    = require("chai").expect;
-var texthelpers = require('../texthelpers');
+var texthelpers = require('../src/texthelpers');
 
 describe("Text Helper", function() {
     it("Converts a string to SEO Format", function() {
