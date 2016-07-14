@@ -1,4 +1,4 @@
-var config = require('../config');
+var config = require('../src/config');
 
 module.exports = function (app,db) {
     app.use('/', require('./routes/default')(db));

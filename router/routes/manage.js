@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var moment = require('moment');
-var config = require('../../config');
+var config = require('../../src/config');
 
 module.exports = function(app, db) {
 

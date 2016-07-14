@@ -7,8 +7,8 @@ module.exports = function() {
     var sessionFileStore = require('session-file-store')(session);
     var bodyParser = require('body-parser');
     var moment = require('moment');
-    var config = require('../config');
-    var database = require('../db');
+    var config = require('../src/config');
+    var database = require('../src/db');
     var app = express();
 
     var sessionOptions = {
@@ -31,7 +31,7 @@ module.exports = function() {
     app.set('views','./views');  // set folder for views
     app.engine('ejs', engine); // use ejs-locals for all ejs templates:
     app.locals.moment = require('moment'); // makes working with time easier
-    app.locals.textHelpers = require('../texthelpers'); // local helpers
+    app.locals.textHelpers = require('../src/texthelpers'); // local helpers
 
     var router = require('../router')(app, db);
 
