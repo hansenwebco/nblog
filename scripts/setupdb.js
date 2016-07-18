@@ -15,6 +15,7 @@ module.exports = function(dbname) {
         postDate: moment.utc().add(30,'seconds').format(),
         postAuthor: config.blog.ownerName,
         postTags: ['first', 'new', 'hello'],
+        ordinal: 0,
         menuItem: 0
     });
 
@@ -24,6 +25,7 @@ module.exports = function(dbname) {
         postDate: moment.utc().format(),
         postAuthor: config.blog.ownerName,
         postTags: ['stars', 'suns', 'planets'],
+        ordinal: 0,
         menuItem: 0
     });
 
@@ -33,6 +35,7 @@ module.exports = function(dbname) {
         postDate: moment.utc().add(45,'seconds').format(),
         postAuthor: config.blog.ownerName,
         postTags: ['about', 'information', 'welcome'],
+        ordinal: 1,
         menuItem: 1
     });
 

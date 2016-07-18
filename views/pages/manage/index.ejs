@@ -6,7 +6,7 @@
 
     <table class="table table-bordered table-stripped">
       <tr>
-        <th colspan="3">
+        <th colspan="4">
           <h4>Posts</h4>
         </th>
       </tr>
@@ -26,7 +26,7 @@
       </tr>
       <% }); %>
       <tr>
-        <td colspan="3">
+        <td colspan="4">
           <h4>Pages</h4>
         </td>
       </tr>
@@ -37,7 +37,8 @@
       </tr>
       <% pages.forEach(function(post) { %>
       <tr>
-          <td><a href="manage/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>"><%=post.postTitle%></a></td>
+
+          <td><%=post.ordinal%> | &nbsp;<a href="manage/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>"><%=post.postTitle%></a></td>
           <td><%=moment(post.postDate).format("MM/D/YYYY, h:mm A")%></td>
           <td>
             <a href="manage/<%=post.$loki%>/<%=textHelpers.seoifyURL(post.postTitle)%>" class="btn btn-xs btn-default">edit</a>

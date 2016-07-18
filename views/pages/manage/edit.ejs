@@ -36,6 +36,14 @@
       </label>
     </div>
   </div>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="textinput">Ordinal</label>
+    <div class="col-md-9">
+    <input id="textinput" name="ordinal" type="text" value="<%=(post.ordinal == null ? 0 : post.ordinal)%>" class="form-control input-md">
+    </div>
+  </div>
+
   <input type="hidden" name="id" value="<%=(post.$loki == null ? post.id : post.$loki)%>">
   <div class="row">
     <div class="col-md-11">

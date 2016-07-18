@@ -49,7 +49,7 @@ module.exports = function(app, db) {
     });
 
     router.post('/edit/', isAuthenticated, function(req, res, next) {
-        var result = db.updatePost(req.body.id, req.body.title, req.body.date, req.body.posttext, req.body.menuitem, req.session.user.userName, req.body.tags, function() {
+        var result = db.updatePost(req.body.id, req.body.title, req.body.date, req.body.posttext, req.body.menuitem, req.session.user.userName, req.body.tags, req.body.ordinal, function() {
             app.locals.menuPosts = db.getMenuPosts();
             res.redirect('/manage');
         });
