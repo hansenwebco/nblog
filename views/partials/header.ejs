@@ -1,3 +1,7 @@
+<%
+var welcomes = [ 'Welcome', 'Hello', 'Aloha', 'Greetings', 'G\'day' ,'Mirëdita' , 'Goddag', 'Hei', 'Namaste', 'Jó napot', 'Aksunai', 'Olá', 'Hola', 'Jambo', 'Merhaba', 'Sawubona'];
+var welcome = welcomes[Math.floor(Math.random()*welcomes.length)];
+%>
 <div id="header">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -16,7 +20,7 @@
         <li><a id="menu-login" href="/login">Login</a></li>
         <% } %>
         </ul>
-      <div class="navbar-brand navbar-right" href="#">Welcome <%if (user) { %><%=user.userName%><% } %></a>
+      <div class="navbar-brand navbar-right" href="#"><%=welcome%> <%if (user) { %><%=user.userName%><% } else  { %> Visitor <% }%></a>
     </div>
   </nav>
 </div>
