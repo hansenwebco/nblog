@@ -20,7 +20,16 @@ module.exports = function(db) {
             };
             res.redirect('/');
         } else {
-            res.send('Incorrect login.');
+
+            // TODO: make this a global function of some sort
+            message = {};
+            message.text = '<b>Error</b>: Sorry the login and password combination did not work, please try again or check out configuration files.';
+            message.class = 'danger';
+
+            res.render('pages/login', {
+                'blogConfig': config.blog,
+                'user': req.session.user
+            });
         }
     });
 

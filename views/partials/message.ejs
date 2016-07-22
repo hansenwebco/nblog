@@ -1,4 +1,14 @@
-<div class="alert alert-warning alert-dismissible" role="alert">
+<% if (typeof message != 'undefined' && message.text) { %>
+<div id="user-message" class="alert alert-<%=message.class ? message.class : 'warning' %> alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>Warning!</strong> <%=error.message%>
+  <%-message.text%>
 </div>
+<script>
+  $(function() {
+    $('#user-message').delay(4000).fadeOut('slow');
+  });
+</script>
+<%
+message = {};
+}
+%>
